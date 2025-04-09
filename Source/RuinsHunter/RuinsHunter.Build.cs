@@ -14,7 +14,8 @@ public class RuinsHunter : ModuleRules
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput",
-            "GameplayTags"
+            "GameplayTags",
+			"GameplayTasks"
         });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
