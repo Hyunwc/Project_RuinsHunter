@@ -10,6 +10,8 @@
 #include "DataAssets/Input/DataAsset_InputConfig.h"
 #include "Components/Input/HunterInputComponent.h"
 #include "HunterGameplayTags.h"
+#include "AbilitySystem/HunterAbilitySystemComponent.h"
+#include "AbilitySystem/HunterAttributeSet.h"
 
 #include "HunterDebugHelper.h"
 
@@ -37,6 +39,20 @@ AHunterPlayerCharacter::AHunterPlayerCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 }
 
+void AHunterPlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (HunterAbilitySystemComponent && HunterAttributeSet)
+	{
+		const FString ASCText = FString::Printf(TEXT("Owner Actor : %s, AvatarActor : %s"),
+			*HunterAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
+			*HunterAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
+		Debug::Print(TEXT("Ability system Coponent Valid") + ASCText, FColor::Green);
+		Debug::Print(TEXT("AttributeSet Valid") + ASCText, FColor::Green);
+	}
+}
+
 void AHunterPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	checkf(InputConfigDataAsset, TEXT("Forgot to assign a valid data asset as input config"));
@@ -58,8 +74,6 @@ void AHunterPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 void AHunterPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Debug::Print(TEXT("Working"));
 }
 
 void AHunterPlayerCharacter::Input_Move(const FInputActionValue& InputActionValue)

@@ -2,6 +2,8 @@
 
 
 #include "Characters/HunterBaseCharacter.h"
+#include "AbilitySystem/HunterAbilitySystemComponent.h"
+#include "AbilitySystem/HunterAttributeSet.h"
 
 // Sets default values
 AHunterBaseCharacter::AHunterBaseCharacter()
@@ -11,5 +13,24 @@ AHunterBaseCharacter::AHunterBaseCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	GetMesh()->bReceivesDecals = false;
+
+	HunterAbilitySystemComponent = CreateDefaultSubobject<UHunterAbilitySystemComponent>(TEXT("HunterAbilitySystemComponent"));
+	HunterAttributeSet = CreateDefaultSubobject<UHunterAttributeSet>(TEXT("HunterAttributeSet"));
+}
+
+UAbilitySystemComponent* AHunterBaseCharacter::GetAbilitySystemComponent() const
+{
+	return GetHunterAbilitySystemComponent();
+}
+
+void AHunterBaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (HunterAbilitySystemComponent)
+	{
+		// 어빌리티 초기화(소유자 액터, 아바타 액터)
+		HunterAbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
 }
 
