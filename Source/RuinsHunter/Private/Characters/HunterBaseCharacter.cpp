@@ -31,6 +31,8 @@ void AHunterBaseCharacter::PossessedBy(AController* NewController)
 	{
 		// 어빌리티 초기화(소유자 액터, 아바타 액터)
 		HunterAbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		ensureMsgf(!CharacterStartUpData.IsNull(), TEXT("Forgot to assign start up data to %s"), *GetName());
 	}
 }
 

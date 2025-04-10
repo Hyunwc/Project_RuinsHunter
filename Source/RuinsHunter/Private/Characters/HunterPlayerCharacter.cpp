@@ -12,6 +12,7 @@
 #include "HunterGameplayTags.h"
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "AbilitySystem/HunterAttributeSet.h"
+#include "DataAssets/StartUpData/DataAsset_PlayerStartUpData.h"
 
 #include "HunterDebugHelper.h"
 
@@ -43,14 +44,22 @@ void AHunterPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	if (HunterAbilitySystemComponent && HunterAttributeSet)
+	if (!CharacterStartUpData.IsNull())
+	{
+		if (UDataAsset_StartUpDataBase* LoadedData = CharacterStartUpData.LoadSynchronous())
+		{
+			LoadedData->GiveToAbilitySystemComponent(HunterAbilitySystemComponent);
+		}
+	}
+
+	/*if (HunterAbilitySystemComponent && HunterAttributeSet)
 	{
 		const FString ASCText = FString::Printf(TEXT("Owner Actor : %s, AvatarActor : %s"),
 			*HunterAbilitySystemComponent->GetOwnerActor()->GetActorLabel(),
 			*HunterAbilitySystemComponent->GetAvatarActor()->GetActorLabel());
 		Debug::Print(TEXT("Ability system Coponent Valid") + ASCText, FColor::Green);
 		Debug::Print(TEXT("AttributeSet Valid") + ASCText, FColor::Green);
-	}
+	}*/
 }
 
 void AHunterPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

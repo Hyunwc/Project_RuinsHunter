@@ -9,6 +9,7 @@
 
 class UHunterAbilitySystemComponent;
 class UHunterAttributeSet;
+class UDataAsset_StartUpDataBase;
 
 UCLASS()
 class RUINSHUNTER_API AHunterBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UHunterAttributeSet* HunterAttributeSet;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "CharacterData")
+	TSoftObjectPtr<UDataAsset_StartUpDataBase> CharacterStartUpData;
 
 public:
 	FORCEINLINE UHunterAbilitySystemComponent* GetHunterAbilitySystemComponent() const { return HunterAbilitySystemComponent; }
