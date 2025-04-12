@@ -3,3 +3,12 @@
 
 #include "Items/Weapons/HunterPlayerWeapon.h"
 
+void AHunterPlayerWeapon::AssignGrantedAbilitySpecHandles(const TArray<FGameplayAbilitySpecHandle>& InspecHandles)
+{
+	GrantedAbilitySpecHandles = InspecHandles;
+}
+
+TArray<FGameplayAbilitySpecHandle> AHunterPlayerWeapon::GetGrantedAbilitySpecHandles() const
+{
+	return GrantedAbilitySpecHandles;
+}

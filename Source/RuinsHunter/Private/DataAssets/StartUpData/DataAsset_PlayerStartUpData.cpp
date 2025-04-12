@@ -5,11 +5,6 @@
 #include "AbilitySystem/Abilites/HunterGameplayAbility.h"
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 
-bool FHunterPlayerAbilitySet::IsValid() const
-{
-    return InputTag.IsValid() && AbilityToGrant;
-}
-
 void UDataAsset_PlayerStartUpData::GiveToAbilitySystemComponent(UHunterAbilitySystemComponent* InASCToGive, int32 ApplyLevel)
 {
     Super::GiveToAbilitySystemComponent(InASCToGive, ApplyLevel);

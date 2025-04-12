@@ -12,5 +12,11 @@ namespace HunterGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_UnequipHammer, "InputTag.UnequipHammer");
 
 	/** Player Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Hammer, "Player.Ability.Equip.Hammer");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Unequip_Hammer, "Player.Ability.Unequip.Hammer");
+
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Hammer, "Player.Weapon.Hammer");
+
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Equip_Hammer, "Player.Event.Equip.Hammer");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Unequip_Hammer, "Player.Event.Unequip.Hammer");
 }
