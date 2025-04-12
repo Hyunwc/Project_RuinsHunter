@@ -13,6 +13,7 @@
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "AbilitySystem/HunterAttributeSet.h"
 #include "DataAssets/StartUpData/DataAsset_PlayerStartUpData.h"
+#include "Components/Combat/PlayerCombatComponent.h"
 
 #include "HunterDebugHelper.h"
 
@@ -38,6 +39,8 @@ AHunterPlayerCharacter::AHunterPlayerCharacter()
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->MaxWalkSpeed = 400.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+
+	PlayerCombatComponent = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
 }
 
 void AHunterPlayerCharacter::PossessedBy(AController* NewController)
@@ -78,6 +81,8 @@ void AHunterPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerIn
 	// 인풋값 바인딩
 	HunterInputComponent->BindNativeInputAction(InputConfigDataAsset, HunterGameplayTags::InputTag_Move, ETriggerEvent::Triggered, this, &ThisClass::Input_Move);
 	HunterInputComponent->BindNativeInputAction(InputConfigDataAsset, HunterGameplayTags::InputTag_Look, ETriggerEvent::Triggered, this, &ThisClass::Input_Look);
+
+	HunterInputComponent->BindAbilityInputAction(InputConfigDataAsset, this, &ThisClass::Input_AbilityInputPressed, &ThisClass::Input_AbilityInputReleased);
 }
 
 void AHunterPlayerCharacter::BeginPlay()
@@ -118,4 +123,14 @@ void AHunterPlayerCharacter::Input_Look(const FInputActionValue& InputActionValu
 	{
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AHunterPlayerCharacter::Input_AbilityInputPressed(FGameplayTag InInputTag)
+{
+	HunterAbilitySystemComponent->OnAbilityInputPressed(InInputTag);
+}
+
+void AHunterPlayerCharacter::Input_AbilityInputReleased(FGameplayTag InInputTag)
+{
+	HunterAbilitySystemComponent->OnAbilityInputReleased(InInputTag);
 }

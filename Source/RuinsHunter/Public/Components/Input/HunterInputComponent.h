@@ -22,6 +22,12 @@ public:
 		ETriggerEvent TriggerEvent,
 		UserObject* ContextObject, 
 		CallbackFunc Func);
+
+	template<class UserObject, typename CallbackFunc>
+	void BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig,
+		UserObject* ContextObject,
+		CallbackFunc InputPressedFun,
+		CallbackFunc InputReleasedFunc);
 };
 
 template<class UserObject, typename CallbackFunc>
@@ -32,5 +38,21 @@ inline void UHunterInputComponent::BindNativeInputAction(const UDataAsset_InputC
 	if (UInputAction* FoundAction = InInputConfig->FindNativeInputActionByTag(InInputTag))
 	{
 		BindAction(FoundAction, TriggerEvent, ContextObject, Func);
+	}
+}
+
+template<class UserObject, typename CallbackFunc>
+inline void UHunterInputComponent::BindAbilityInputAction(const UDataAsset_InputConfig* InInputConfig, UserObject* ContextObject, CallbackFunc InputPressedFun, CallbackFunc InputReleasedFunc)
+{
+	checkf(InInputConfig, TEXT("Input config data null"));
+
+	for (const FHunterInputActionConfig& AbilityInputActionConfig : InInputConfig->AbilityInputActions)
+	{
+		if (!AbilityInputActionConfig.IsValid()) continue;
+
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Started,
+			ContextObject, InputPressedFun, AbilityInputActionConfig.InputTag);
+		BindAction(AbilityInputActionConfig.InputAction, ETriggerEvent::Completed,
+			ContextObject, InputReleasedFunc, AbilityInputActionConfig.InputTag);
 	}
 }

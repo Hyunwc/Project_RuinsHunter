@@ -6,6 +6,9 @@
 #include "Abilities/GameplayAbility.h"
 #include "HunterGameplayAbility.generated.h"
 
+class UPawnCombatComponent;
+class UHunterAbilitySystemComponent;
+
 UENUM(BlueprintType)
 enum class EHunterAbilityActivationPolicy : uint8
 {
@@ -29,4 +32,10 @@ protected:
 	// 할당 정책
 	UPROPERTY(EditDefaultsOnly, Category = "HunterAbility")
 	EHunterAbilityActivationPolicy AbilityActivationPolicy = EHunterAbilityActivationPolicy::OnTriggered;
+
+	UFUNCTION(BlueprintPure, Category = "Huntrer|Ability")
+	UPawnCombatComponent* GetPawnCombatComponentFromActionInfo() const;
+
+	UFUNCTION(BlueprintPure, Category = "Huntrer|Ability")
+	UHunterAbilitySystemComponent* GetHunterAbilitySystemComponent() const;
 };
