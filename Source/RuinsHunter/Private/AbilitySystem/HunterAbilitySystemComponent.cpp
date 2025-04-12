@@ -2,6 +2,7 @@
 
 
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
+#include "AbilitySystem/Abilites/HunterGameplayAbility.h"
 
 void UHunterAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& InInputTag)
 {
@@ -20,4 +21,42 @@ void UHunterAbilitySystemComponent::OnAbilityInputPressed(const FGameplayTag& In
 
 void UHunterAbilitySystemComponent::OnAbilityInputReleased(const FGameplayTag& InInputTag)
 {
+}
+
+void UHunterAbilitySystemComponent::GrantPlayerWeaponAbilities(const TArray<FHunterPlayerAbilitySet>& InDefaultWeaponAbilities, int32 ApplyLevel, TArray<FGameplayAbilitySpecHandle>& OutGrantedAbilitySpecHandles)
+{
+	if (InDefaultWeaponAbilities.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FHunterPlayerAbilitySet& AbilitySet : InDefaultWeaponAbilities)
+	{
+		if (!AbilitySet.IsValid()) continue;
+
+		FGameplayAbilitySpec AbilitySpec(AbilitySet.AbilityToGrant);
+		AbilitySpec.SourceObject = GetAvatarActor();
+		AbilitySpec.Level = ApplyLevel;
+		AbilitySpec.DynamicAbilityTags.AddTag(AbilitySet.InputTag);
+
+		OutGrantedAbilitySpecHandles.AddUnique(GiveAbility(AbilitySpec));
+	}
+}
+
+void UHunterAbilitySystemComponent::RemoveGrantedPlayerWeaponAbilities(UPARAM(ref)TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove)
+{
+	if (InSpecHandlesToRemove.IsEmpty())
+	{
+		return;
+	}
+
+	for (const FGameplayAbilitySpecHandle& SpecHandle : InSpecHandlesToRemove)
+	{
+		if (SpecHandle.IsValid())
+		{
+			ClearAbility(SpecHandle);
+		}
+	}
+
+	InSpecHandlesToRemove.Empty();
 }

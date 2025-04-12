@@ -6,6 +6,7 @@
 #include "AnimInstances/HunterBaseAnimInstance.h"
 #include "HunterPlayerLinkedAnimLayer.generated.h"
 
+class UHunterPlayerAnimInstance;
 /**
  * 
  */
@@ -14,4 +15,7 @@ class RUINSHUNTER_API UHunterPlayerLinkedAnimLayer : public UHunterBaseAnimInsta
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintPure, meta = (BlueprintThreadSafe))
+	UHunterPlayerAnimInstance* GetPlayerAnimInstance() const;
 };
