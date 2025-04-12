@@ -6,7 +6,7 @@
 #include "HunterStructTypes.generated.h"
 
 class UHunterPlayerLinkedAnimLayer;
-class UHunterGameplayAbility;
+class UHunterPlayerGameplayAbility;
 class UInputMappingContext;
 
 USTRUCT(BlueprintType)
@@ -18,7 +18,7 @@ struct FHunterPlayerAbilitySet
 	FGameplayTag InputTag;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TSubclassOf<UHunterGameplayAbility> AbilityToGrant;
+	TSubclassOf<UHunterPlayerGameplayAbility> AbilityToGrant;
 
 	bool IsValid() const;
 };

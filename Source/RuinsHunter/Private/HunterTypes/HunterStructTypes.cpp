@@ -2,7 +2,7 @@
 
 
 #include "HunterTypes/HunterStructTypes.h"
-#include "AbilitySystem/Abilites/HunterGameplayAbility.h"
+#include "AbilitySystem/Abilites/HunterPlayerGameplayAbility.h"
 
 bool FHunterPlayerAbilitySet::IsValid() const
 {
