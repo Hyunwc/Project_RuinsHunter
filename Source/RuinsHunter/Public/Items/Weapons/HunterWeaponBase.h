@@ -8,6 +8,9 @@
 
 class UBoxComponent;
 
+/**
+ *
+ */
 UCLASS()
 class RUINSHUNTER_API AHunterWeaponBase : public AActor
 {

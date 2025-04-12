@@ -3,6 +3,7 @@
 
 #include "AbilitySystem/Abilites/HunterGameplayAbility.h"
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
+#include "Components/Combat/PawnCombatComponent.h"
 
 void UHunterGameplayAbility::OnGiveAbility(const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilitySpec& Spec)
 {
@@ -28,4 +29,14 @@ void UHunterGameplayAbility::EndAbility(const FGameplayAbilitySpecHandle Handle,
 			ActorInfo->AbilitySystemComponent->ClearAbility(Handle);
 		}
 	}
+}
+
+UPawnCombatComponent* UHunterGameplayAbility::GetPawnCombatComponentFromActionInfo() const
+{
+	return GetAvatarActorFromActorInfo()->FindComponentByClass<UPawnCombatComponent>();
+}
+
+UHunterAbilitySystemComponent* UHunterGameplayAbility::GetHunterAbilitySystemComponent() const
+{
+	return Cast<UHunterAbilitySystemComponent>(CurrentActorInfo->AbilitySystemComponent);
 }

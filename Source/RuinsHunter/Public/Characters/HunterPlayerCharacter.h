@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/HunterBaseCharacter.h"
+#include "GameplayTagContainer.h"
 #include "HunterPlayerCharacter.generated.h"
 
 class USpringArmComponent;
@@ -11,6 +12,8 @@ class UCameraComponent;
 class UDataAsset_InputConfig;
 
 struct FInputActionValue;
+
+class UPlayerCombatComponent;
 /**
  * 
  */
@@ -38,6 +41,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+
+	UPlayerCombatComponent* PlayerCombatComponent;
 #pragma endregion
 
 #pragma region Inputs
@@ -48,5 +54,11 @@ private:
 	void Input_Move(const FInputActionValue& InputActionValue);
 	void Input_Look(const FInputActionValue& InputActionValue);
 
+	void Input_AbilityInputPressed(FGameplayTag InInputTag);
+	void Input_AbilityInputReleased(FGameplayTag InInputTag);
+
 #pragma endregion
+
+public:
+	FORCEINLINE UPlayerCombatComponent* GetPlayerCombatComponent() const { return PlayerCombatComponent; }
 };
