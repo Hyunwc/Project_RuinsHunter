@@ -6,6 +6,7 @@
 #include "DataAssets/StartUpData/DataAsset_StartUpDataBase.h"
 #include "DataAsset_EnemyStartUpData.generated.h"
 
+class UHunterEnemyGameplayAbility;
 /**
  * 
  */
@@ -13,5 +14,10 @@ UCLASS()
 class RUINSHUNTER_API UDataAsset_EnemyStartUpData : public UDataAsset_StartUpDataBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	virtual void GiveToAbilitySystemComponent(UHunterAbilitySystemComponent* InASCToGive, int32 ApplyLevel = 1) override;
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "StartUpData")
+	TArray<TSubclassOf<UHunterEnemyGameplayAbility>> EnemyCombatAbilities;
 };

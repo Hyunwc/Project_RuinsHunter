@@ -4,16 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "HunterTypes/HunterEnumTypes.h"
 #include "HunterFunctionLibrary.generated.h"
 
 class UHunterAbilitySystemComponent;
+class UPawnCombatComponent;
 
-UENUM()
-enum class EHunterConfirmType : uint8
-{
-	Yes,
-	No
-};
+
 /**
  * 
  */
@@ -35,4 +32,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Hunter|FunctionLibrary", meta = (DisplayName = "Does Actor Have Tag", ExpandEnumAsExecs = "OutConfirmType"))
 	static void BP_DoesActorHaveTag(AActor* InActor, FGameplayTag TagToCheck, EHunterConfirmType& OutConfirmType);
+
+	static UPawnCombatComponent* NativeGetPawnCombatComponentFromActor(AActor* InActor);
+
+	UFUNCTION(BlueprintCallable, Category = "Hunter|FunctionLibrary", meta = (DisplayName = "Get Pawn Combat Component From Actor", ExpandEnumAsExecs = "OutValidType"))
+	static UPawnCombatComponent* BP_GetPawnCombatComponentFromActor(AActor* InActor, EHunterValidType& OutValidType);
 };
