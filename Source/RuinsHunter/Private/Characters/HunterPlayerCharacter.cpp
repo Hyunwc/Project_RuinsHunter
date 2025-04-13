@@ -43,6 +43,11 @@ AHunterPlayerCharacter::AHunterPlayerCharacter()
 	PlayerCombatComponent = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
 }
 
+UPawnCombatComponent* AHunterPlayerCharacter::GetPawnCombatComponent() const
+{
+	return PlayerCombatComponent;
+}
+
 void AHunterPlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

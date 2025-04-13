@@ -25,4 +25,7 @@ namespace HunterGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_Unequip_Hammer, "Player.Event.Unequip.Hammer");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher");
+
+	/** Enemy Tags **/
+	UE_DEFINE_GAMEPLAY_TAG(Enemy_Weapon, "Enemy.Weapon");
 }
