@@ -13,3 +13,10 @@ enum class EHunterValidType : uint8
 	Valid,
 	Invalid
 };
+
+UENUM()
+enum class EHunterSuccessType : uint8
+{
+	Successful,
+	Failed
+};

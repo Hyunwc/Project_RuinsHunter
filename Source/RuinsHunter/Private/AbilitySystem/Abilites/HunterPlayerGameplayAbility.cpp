@@ -4,6 +4,8 @@
 #include "AbilitySystem/Abilites/HunterPlayerGameplayAbility.h"
 #include "Characters/HunterPlayerCharacter.h"
 #include "Controllers/HunterPlayerController.h"
+#include "AbilitySystem/HunterAbilitySystemComponent.h"
+#include "HunterGameplayTags.h"
 
 AHunterPlayerCharacter* UHunterPlayerGameplayAbility::GetPlayerCharacterFromActorInfo()
 {
@@ -28,4 +30,32 @@ AHunterPlayerController* UHunterPlayerGameplayAbility::GetPlayerControllerFromAc
 UPlayerCombatComponent* UHunterPlayerGameplayAbility::GetPlayerCombatComponentFromActorInfo()
 {
 	return GetPlayerCharacterFromActorInfo()->GetPlayerCombatComponent();
+}
+
+FGameplayEffectSpecHandle UHunterPlayerGameplayAbility::MakePlayerDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass, float InWeaponBaseDamage, FGameplayTag InCurrentAttackTypeTag, int32 InUsedComboCount)
+{
+	check(EffectClass);
+
+	FGameplayEffectContextHandle ContextHandle = GetHunterAbilitySystemComponent()->MakeEffectContext();
+	ContextHandle.SetAbility(this);
+	ContextHandle.AddSourceObject(GetAvatarActorFromActorInfo());
+	ContextHandle.AddInstigator(GetAvatarActorFromActorInfo(), GetAvatarActorFromActorInfo());
+
+	FGameplayEffectSpecHandle EffectSpecHandle = GetHunterAbilitySystemComponent()->MakeOutgoingSpec(
+		EffectClass,
+		GetAbilityLevel(),
+		ContextHandle
+	);
+
+	EffectSpecHandle.Data->SetSetByCallerMagnitude(
+		HunterGameplayTags::Shared_SetByCaller_BaseDamage,
+		InWeaponBaseDamage
+	);
+
+	if (InCurrentAttackTypeTag.IsValid())
+	{
+		EffectSpecHandle.Data->SetSetByCallerMagnitude(InCurrentAttackTypeTag, InUsedComboCount);
+	}
+
+	return EffectSpecHandle;
 }
