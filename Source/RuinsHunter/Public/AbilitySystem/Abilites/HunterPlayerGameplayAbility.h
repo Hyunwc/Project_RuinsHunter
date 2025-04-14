@@ -28,6 +28,12 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Huntrer|Ability")
 	UPlayerCombatComponent* GetPlayerCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintPure, Category = "Huntrer|Ability")
+	FGameplayEffectSpecHandle MakePlayerDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
+		float InWeaponBaseDamage,
+		FGameplayTag InCurrentAttackTypeTag,
+		int32 InUsedComboCount);
+
 private:
 	TWeakObjectPtr<AHunterPlayerCharacter> CachedHunterPlayerCharacter;
 	TWeakObjectPtr<AHunterPlayerController> CachedHunterPlayerController;

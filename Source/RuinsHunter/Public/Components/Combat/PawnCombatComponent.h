@@ -43,7 +43,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Hunter|Combat")
 	void ToggleWeaponCollision(bool bShouldEnable, EToggleDamageType ToggleDamageType = EToggleDamageType::CurrentEquippedWeapon);
 
-
+	virtual void OnHitTargetActor(AActor* HitActor);
+	virtual void OnWeaponPulledFromTargetActor(AActor* InteractedActor);
+	
+protected:
+	TArray<AActor*> OverlappedActors;
 private:
 	// Key : 태그, Value : 등록할 무기
 	TMap<FGameplayTag, AHunterWeaponBase*> CharacterCarriedWeaponMap;
