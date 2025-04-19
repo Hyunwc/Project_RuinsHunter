@@ -3,6 +3,8 @@
 
 #include "AbilitySystem/HunterAttributeSet.h"
 #include "GameplayEffectExtension.h"
+#include "HunterFunctionLibrary.h"
+#include "HunterGameplayTags.h"
 
 #include "HunterDebugHelper.h"
 
@@ -54,7 +56,9 @@ void UHunterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 		// TODO :: Handle Character Death
 		if (NewCurrentHealth == 0.f)
 		{
+			UHunterFunctionLibrary::AddGameplayTagToActorIfNone(Data.Target.GetAvatarActor(), HunterGameplayTags::Shared_Status_Dead);
 
+			
 		}
 	}
 	
