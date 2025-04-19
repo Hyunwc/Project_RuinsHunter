@@ -43,9 +43,20 @@ void UPlayerCombatComponent::OnHitTargetActor(AActor* HitActor)
         Data
     );
     //Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT(" hit ") + HitActor->GetActorNameOrLabel(), FColor::Green);
+
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        GetOwningPawn(),
+        HunterGameplayTags::Player_Event_HitPause,
+        FGameplayEventData()
+    );
 }
 
 void UPlayerCombatComponent::OnWeaponPulledFromTargetActor(AActor* InteractedActor)
 {
     //Debug::Print(GetOwningPawn()->GetActorNameOrLabel() + TEXT(" 's weapon pulled from ") + InteractedActor->GetActorNameOrLabel(), FColor::Red);
+    UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+        GetOwningPawn(),
+        HunterGameplayTags::Player_Event_HitPause,
+        FGameplayEventData()
+    );
 }
