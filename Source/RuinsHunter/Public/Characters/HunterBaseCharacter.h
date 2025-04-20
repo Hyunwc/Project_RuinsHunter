@@ -6,8 +6,6 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Interfaces/PawnCombatInterface.h"
-#include "Interfaces/PawnUIInterface.h"
-
 #include "HunterBaseCharacter.generated.h"
 
 class UHunterAbilitySystemComponent;
@@ -15,7 +13,7 @@ class UHunterAttributeSet;
 class UDataAsset_StartUpDataBase;
 
 UCLASS()
-class RUINSHUNTER_API AHunterBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface, public IPawnUIInterface
+class RUINSHUNTER_API AHunterBaseCharacter : public ACharacter, public IAbilitySystemInterface, public IPawnCombatInterface
 {
 	GENERATED_BODY()
 
@@ -30,10 +28,6 @@ public:
 	//~ Begin IPawnCombatInterface Interface.
 	virtual UPawnCombatComponent* GetPawnCombatComponent() const override;
 	//~ End IPawnCombatInterface Interface
-
-	//~ Begin IPawnUIInterface Interface.
-	virtual UPawnUIComponent* GetPawnUIComponent() const override;
-	//~ End IPawnUIInterface Interface
 
 protected:
 	//~ Begin APawn Interface.

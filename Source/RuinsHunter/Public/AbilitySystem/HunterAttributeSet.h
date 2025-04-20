@@ -7,8 +7,6 @@
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "HunterAttributeSet.generated.h"
 
-class IPawnUIInterface;
-
 // 게터, 세터, Init, Attribute 함수를 제공해주는 매크로
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
  GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -56,7 +54,4 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Damage")
 	FGameplayAttributeData DamageTaken;
 	ATTRIBUTE_ACCESSORS(UHunterAttributeSet, DamageTaken)
-
-private:
-	TWeakInterfacePtr<IPawnUIInterface> CachedPawnUIInterface;
 };

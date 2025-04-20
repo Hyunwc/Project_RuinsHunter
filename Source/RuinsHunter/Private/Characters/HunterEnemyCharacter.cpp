@@ -6,7 +6,6 @@
 #include "Components/Combat/EnemyCombatComponent.h"
 #include "Engine/AssetManager.h"
 #include "DataAssets/StartUpData/DataAsset_EnemyStartUpData.h"
-#include "Components/UI/EnemyUIComponent.h"
 
 #include "HunterDebugHelper.h"
 
@@ -25,18 +24,12 @@ AHunterEnemyCharacter::AHunterEnemyCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 1000.f;
 
 	EnemyCombatComponent = CreateDefaultSubobject<UEnemyCombatComponent>(TEXT("EnemyCombatComponent"));
-	EnemyUIComponent = CreateDefaultSubobject<UEnemyUIComponent>(TEXT("EnemyUIComponent"));
 
 }
 
 UPawnCombatComponent* AHunterEnemyCharacter::GetPawnCombatComponent() const
 {
 	return EnemyCombatComponent;
-}
-
-UPawnUIComponent* AHunterEnemyCharacter::GetPawnUIComponent() const
-{
-	return EnemyUIComponent;
 }
 
 void AHunterEnemyCharacter::PossessedBy(AController* NewController)
