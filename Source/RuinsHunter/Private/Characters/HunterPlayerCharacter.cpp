@@ -14,6 +14,7 @@
 #include "AbilitySystem/HunterAttributeSet.h"
 #include "DataAssets/StartUpData/DataAsset_PlayerStartUpData.h"
 #include "Components/Combat/PlayerCombatComponent.h"
+#include "Components/UI/PlayerUIComponent.h"
 
 #include "HunterDebugHelper.h"
 
@@ -41,11 +42,22 @@ AHunterPlayerCharacter::AHunterPlayerCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 
 	PlayerCombatComponent = CreateDefaultSubobject<UPlayerCombatComponent>(TEXT("PlayerCombatComponent"));
+	PlayerUIComponent = CreateDefaultSubobject<UPlayerUIComponent>(TEXT("PlayerUIComponent"));
 }
 
 UPawnCombatComponent* AHunterPlayerCharacter::GetPawnCombatComponent() const
 {
 	return PlayerCombatComponent;
+}
+
+UPawnUIComponent* AHunterPlayerCharacter::GetPawnUIComponent() const
+{
+	return PlayerUIComponent;
+}
+
+UPlayerUIComponent* AHunterPlayerCharacter::GetPlayerUIComponent() const
+{
+	return PlayerUIComponent;
 }
 
 void AHunterPlayerCharacter::PossessedBy(AController* NewController)
