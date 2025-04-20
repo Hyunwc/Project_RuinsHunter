@@ -7,6 +7,7 @@
 #include "HunterWidgetBase.generated.h"
 
 class UPlayerUIComponent;
+class UEnemyUIComponent;
 /**
  * 
  */
@@ -22,4 +23,11 @@ protected:
 	// 블루프린트에서 구현할 함수
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Player UI Component Initialized"))
 	void BP_OnOwningPlayerUIComponentInitialized(UPlayerUIComponent* OwningPlayerUIComponent);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Owning Enemy UI Component Initialized"))
+	void BP_OnOwningEnemyUIComponentInitialized(UEnemyUIComponent* OwningEnemyUIComponent);
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void InitEnemyCreatedWidget(AActor* OwningEnemyActor);
 };
