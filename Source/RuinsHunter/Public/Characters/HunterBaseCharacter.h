@@ -39,6 +39,7 @@ protected:
 	virtual void PossessedBy(AController* NewController) override;
 	//~ End APawn Interface
 
+	// ASC(Ability System Component) ºÎÂø
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	UHunterAbilitySystemComponent* HunterAbilitySystemComponent;
 
