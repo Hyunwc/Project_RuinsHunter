@@ -37,7 +37,7 @@ ETeamAttitude::Type AHunterAIController::GetTeamAttitudeTowards(const AActor& Ot
 	const IGenericTeamAgentInterface* OtherTeamAgent = Cast<const IGenericTeamAgentInterface>(PawnToCheck->GetController());
 
 	// 상대 액터가 Pawndlrh 팀이 다르면 적으로 간주
-	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() != GetGenericTeamId())
+	if (OtherTeamAgent && OtherTeamAgent->GetGenericTeamId() < GetGenericTeamId())
 	{
 		return ETeamAttitude::Hostile;
 	}
@@ -75,13 +75,16 @@ void AHunterAIController::BeginPlay()
 
 void AHunterAIController::OnEnemyPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
 {
-	// AI가 감지했다면
-	if (Stimulus.WasSuccessfullySensed() && Actor)
+	// 블랙보드에 타겟 액터 저장
+	if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
 	{
-		// 블랙보드에 타겟 액터 저장
-		if (UBlackboardComponent* BlackboardComponent = GetBlackboardComponent())
+		if (!BlackboardComponent->GetValueAsObject(FName("TargetActor")))
 		{
-			BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
+			// AI가 감지했다면
+			if (Stimulus.WasSuccessfullySensed() && Actor)
+			{
+				BlackboardComponent->SetValueAsObject(FName("TargetActor"), Actor);
+			}
 		}
 	}
 }
