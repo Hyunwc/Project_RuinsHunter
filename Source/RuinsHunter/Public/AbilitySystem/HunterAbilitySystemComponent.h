@@ -27,4 +27,9 @@ public:
 	// UPARAM -> 이 파라미터는 출력 파라미터가 아님을 알림
 	UFUNCTION(BlueprintCallable, Category = "Hunter|Ability")
 	void RemoveGrantedPlayerWeaponAbilities(UPARAM(ref) TArray<FGameplayAbilitySpecHandle>& InSpecHandlesToRemove);
+
+	UFUNCTION(BlueprintCallable, Category = "Hunter|Ability")
+	bool TryActivateAbilityByTag(FGameplayTag AbilityTagToActivate);
+
+
 };
