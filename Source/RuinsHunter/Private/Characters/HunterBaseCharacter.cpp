@@ -4,6 +4,7 @@
 #include "Characters/HunterBaseCharacter.h"
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "AbilitySystem/HunterAttributeSet.h"
+#include "MotionWarpingComponent.h"
 
 // Sets default values
 AHunterBaseCharacter::AHunterBaseCharacter()
@@ -16,6 +17,7 @@ AHunterBaseCharacter::AHunterBaseCharacter()
 
 	HunterAbilitySystemComponent = CreateDefaultSubobject<UHunterAbilitySystemComponent>(TEXT("HunterAbilitySystemComponent"));
 	HunterAttributeSet = CreateDefaultSubobject<UHunterAttributeSet>(TEXT("HunterAttributeSet"));
+	MotionWarpingComponent = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComponent"));
 }
 
 UAbilitySystemComponent* AHunterBaseCharacter::GetAbilitySystemComponent() const

@@ -24,6 +24,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Hunter|Ability")
 	UEnemyCombatComponent* GetEnemyCombatComponentFromActorInfo();
 
+	UFUNCTION(BlueprintPure, Category = "Hunter|Ability")
+	FGameplayEffectSpecHandle MakeEnemyDamageEffectSpecHandle(TSubclassOf<UGameplayEffect> EffectClass,
+		const FScalableFloat& InDamageScalableFloat);
 private:
 	TWeakObjectPtr<AHunterEnemyCharacter> CachedHunterEnemyCharacter;
 };

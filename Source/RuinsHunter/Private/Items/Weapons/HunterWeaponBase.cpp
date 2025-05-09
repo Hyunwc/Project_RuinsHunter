@@ -3,6 +3,7 @@
 
 #include "Items/Weapons/HunterWeaponBase.h"
 #include "Components/BoxComponent.h"
+#include "HunterFunctionLibrary.h"
 
 #include "HunterDebugHelper.h"
 
@@ -31,12 +32,10 @@ void AHunterWeaponBase::OnCollisionBoxBeginOverlap(UPrimitiveComponent* Overlapp
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UHunterFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			OnWeaponHitTarget.ExecuteIfBound(OtherActor);
 		}
-
-		// TODO : Impletment Hit check for enemy Characters
 	}
 }
 
@@ -48,12 +47,10 @@ void AHunterWeaponBase::OnCollisionBoxEndOverlap(UPrimitiveComponent* Overlapped
 
 	if (APawn* HitPawn = Cast<APawn>(OtherActor))
 	{
-		if (WeaponOwningPawn != HitPawn)
+		if (UHunterFunctionLibrary::IsTargetPawnHostile(WeaponOwningPawn, HitPawn))
 		{
 			OnWeaponPulledFromTarget.ExecuteIfBound(OtherActor);
 		}
-
-		// TODO : Impletment Hit check for enemy Characters
 	}
 }
 
