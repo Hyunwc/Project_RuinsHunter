@@ -5,6 +5,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "Interfaces/PawnCombatInterface.h"
+#include "GenericTeamAgentInterface.h"
 
 UHunterAbilitySystemComponent* UHunterFunctionLibrary::NativeGetHunterASCFromActor(AActor* InActor)
 {
@@ -63,4 +64,19 @@ UPawnCombatComponent* UHunterFunctionLibrary::BP_GetPawnCombatComponentFromActor
 
     OutValidType = CombatComponent ? EHunterValidType::Valid : EHunterValidType::Invalid;
     return CombatComponent;
+}
+
+bool UHunterFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* TargetPawn)
+{
+    check(QueryPawn && TargetPawn);
+
+    IGenericTeamAgentInterface* QueryTeamAgent = Cast<IGenericTeamAgentInterface>(QueryPawn->GetController());
+    IGenericTeamAgentInterface* TargetTeamAgent = Cast<IGenericTeamAgentInterface>(TargetPawn->GetController());
+
+    if (QueryTeamAgent && TargetTeamAgent)
+    {
+        return QueryTeamAgent->GetGenericTeamId() != TargetTeamAgent->GetGenericTeamId();
+    }
+
+    return false;
 }
