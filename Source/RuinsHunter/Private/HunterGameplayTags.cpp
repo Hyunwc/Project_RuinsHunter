@@ -12,6 +12,7 @@ namespace HunterGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_UnequipHammer, "InputTag.UnequipHammer");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_LightAttack_Hammer, "InputTag.LightAttack.Hammer");
 	UE_DEFINE_GAMEPLAY_TAG(InputTag_HeavyAttack_Hammer, "InputTag.HeavyAttack.Hammer");
+	UE_DEFINE_GAMEPLAY_TAG(InputTag_Roll, "InputTag.Roll");
 
 	/** Player Tags **/
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Equip_Hammer, "Player.Ability.Equip.Hammer");
@@ -19,6 +20,7 @@ namespace HunterGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Light_Hammer, "Player.Ability.Attack.Light.Hammer");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Attack_Heavy_Hammer, "Player.Ability.Attack.Heavy.Hammer");
 	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_HitPause, "Player.Ability.HitPause");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Ability_Roll, "Player.Ability.Roll");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Weapon_Hammer, "Player.Weapon.Hammer");
 
@@ -27,6 +29,7 @@ namespace HunterGameplayTags
 	UE_DEFINE_GAMEPLAY_TAG(Player_Event_HitPause, "Player.Event.HitPause");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_Status_JumpToFinisher, "Player.Status.JumpToFinisher");
+	UE_DEFINE_GAMEPLAY_TAG(Player_Status_Rolling, "Player.Status.Rolling");
 
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Light, "Player.SetByCaller.AttackType.Light");
 	UE_DEFINE_GAMEPLAY_TAG(Player_SetByCaller_AttackType_Heavy, "Player.SetByCaller.AttackType.Heavy");

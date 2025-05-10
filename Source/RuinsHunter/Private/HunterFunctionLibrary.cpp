@@ -80,3 +80,8 @@ bool UHunterFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* Target
 
     return false;
 }
+
+float UHunterFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel)
+{
+    return InScalableFloat.GetValueAtLevel(InLevel);
+}
