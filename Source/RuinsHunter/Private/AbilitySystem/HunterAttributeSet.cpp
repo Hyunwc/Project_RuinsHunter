@@ -63,14 +63,14 @@ void UHunterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCall
 
 		SetCurrentHealth(NewCurrentHealth);
 
-		const FString DebugString = FString::Printf(
+		/*const FString DebugString = FString::Printf(
 			TEXT("Old Health : %f, Damage Done : %f, NuewCurrentHealth : %f"),
 			OldHealth,
 			DamageDone,
 			NewCurrentHealth
 		);
 
-		Debug::Print(DebugString, FColor::Green);
+		Debug::Print(DebugString, FColor::Green);*/
 
 		PawnUIComponent->OnCurrentHealthChanged.Broadcast(GetCurrentHealth() / GetMaxHealth());
 

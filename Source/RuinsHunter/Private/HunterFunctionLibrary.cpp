@@ -6,6 +6,8 @@
 #include "AbilitySystem/HunterAbilitySystemComponent.h"
 #include "Interfaces/PawnCombatInterface.h"
 #include "GenericTeamAgentInterface.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "HunterGameplayTags.h"
 
 UHunterAbilitySystemComponent* UHunterFunctionLibrary::NativeGetHunterASCFromActor(AActor* InActor)
 {
@@ -84,4 +86,42 @@ bool UHunterFunctionLibrary::IsTargetPawnHostile(APawn* QueryPawn, APawn* Target
 float UHunterFunctionLibrary::GetScalableFloatValueAtLevel(const FScalableFloat& InScalableFloat, float InLevel)
 {
     return InScalableFloat.GetValueAtLevel(InLevel);
+}
+
+FGameplayTag UHunterFunctionLibrary::ComputeHitReactDirectionTag(AActor* InAttacker, AActor* InVictim, float& OutAngleDifference)
+{
+    check(InAttacker && InVictim);
+
+    // 플레이어 타격 각도 계산
+    const FVector VictimForward = InVictim->GetActorForwardVector();
+    const FVector VictimToAttackerNormalized = (InAttacker->GetActorLocation() - InVictim->GetActorLocation()).GetSafeNormal();
+
+    const float DotResult = FVector::DotProduct(VictimForward, VictimToAttackerNormalized);
+    OutAngleDifference = UKismetMathLibrary::DegAcos(DotResult);
+
+    const FVector CrossResult = FVector::CrossProduct(VictimForward, VictimToAttackerNormalized);
+
+    if (CrossResult.Z < 0.f)
+    {
+        OutAngleDifference *= -1.f;
+    }
+
+    if (OutAngleDifference >= -45.f && OutAngleDifference <= 45.f)
+    {
+        return HunterGameplayTags::Shared_Status_HitReact_Front;
+    }
+    else if (OutAngleDifference < -45.f && OutAngleDifference >= 45.f)
+    {
+        return HunterGameplayTags::Shared_Status_HitReact_Left;
+    }
+    else if (OutAngleDifference < -135.f || OutAngleDifference > 135.f)
+    {
+        return HunterGameplayTags::Shared_Status_HitReact_Back;
+    }
+    else if (OutAngleDifference > 45.f && OutAngleDifference <= 135.f)
+    {
+        return HunterGameplayTags::Shared_Status_HitReact_Right;
+    }
+
+    return HunterGameplayTags::Shared_Status_HitReact_Front;
 }
